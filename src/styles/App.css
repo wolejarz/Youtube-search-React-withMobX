@@ -1,0 +1,25 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.Item {
+  min-width: 100%;
+  background-color: cornsilk;
+  font-size: large;
+  margin: 7px;
+  float: left;
+}
+
+.ItemProp {
+  width: 90%;
+  float: left;
+}
+
+.leftPan {
+  max-width: 60%;
+}
+
+.checkbox {
+  margin: 10px;
+  transform: scale(2);
+}
