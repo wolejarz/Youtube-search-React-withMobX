@@ -1,7 +1,7 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 
 //
-class VideoStore {
+class videoStore {
   videos = [];
   selectedVideo = null;
   hiddenOrWatchedVideos = [];
@@ -15,7 +15,8 @@ class VideoStore {
   //   };
 
   constructor() {
-    makeAutoObservable(this);
+    observable.array(this.videos);
   }
 }
+const VideoStore = new videoStore();
 export default VideoStore;

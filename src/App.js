@@ -11,11 +11,11 @@ const App = () => {
     <div>
       <div className="leftPan">
         <ChannelList />
-        <SearchBar />
+        {/* <SearchBar />
         <VideoList />
       </div>
       <div className="rightPan">
-        <VideoDetails />
+        <VideoDetails /> */}
       </div>
     </div>
   );

@@ -1,25 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect } from "react";
-import AppContext from "../context/appContext";
+import React from "react";
+import { observer } from "mobx-react";
 import ChannelItem from "./channelItem";
+import ChannelStore from "../stores/channelStore";
 
-const ChannelList = () => {
-  // loading list of channels when application loads
-  useEffect(() => {
-    handleGetChannels();
-  }, []);
-  const appContext = useContext(AppContext);
-  const { channels, handleGetChannels } = appContext;
-
-  // loading list of channels when application loads
-  useEffect(() => {
-    handleGetChannels();
-  }, []);
-
-  const listChannels = channels.map((current, id) => (
-    <ChannelItem key={id} channel={current} id={id} />
-  ));
-
-  return <div>{listChannels} </div>;
-};
+const ChannelList = observer(() => {
+  const newarr = ChannelStore.channels;
+  console.log(ChannelStore.channels);
+  return (
+    <div>
+      {ChannelStore.channels.map((current, id) => (
+        <ChannelItem key={id} channel={current} id={id} />
+      ))}
+    </div>
+  );
+});
 export default ChannelList;
