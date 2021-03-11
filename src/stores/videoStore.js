@@ -56,7 +56,8 @@ getVideosFromChannel = async function (channel) {
 
   }.bind(this)
 
-  
+  handleSelectVideo = () => {}
+  handleHideVideo = () => {}
 
   constructor() {
    makeAutoObservable(this)
