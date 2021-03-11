@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
-import AppContext from "../context/appContext";
-
+import VideoStore from '../stores/videoStore'
 const SearchBar = () => {
-  const appContext = useContext(AppContext);
-  const { handleGetVideos } = appContext;
+ 
+
   return (
     <div style={{ fontSize: "20px", textAlign: "center" }}>
-      <button style={{ fontSize: "20px" }} onClick={handleGetVideos}>
+      <button style={{ fontSize: "20px" }} onClick={VideoStore.handleGetVideos}>
         Search Videos
       </button>
     </div>

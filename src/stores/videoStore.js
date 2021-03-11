@@ -1,21 +1,16 @@
-import { makeAutoObservable, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
+import ChannelStore from '../stores/channelStore'
 
-//
 class videoStore {
   videos = [];
   selectedVideo = null;
   hiddenOrWatchedVideos = [];
 
-  timer = 0;
+  handleGetVideos = () => {
 
-  //   incrementCounter = () => (this.timer += 1);
-
-  //   reset = () => {
-  //     this.timer = 0;
-  //   };
-
+  }
   constructor() {
-    observable.array(this.videos);
+   makeAutoObservable(this)
   }
 }
 const VideoStore = new videoStore();
