@@ -1,8 +1,6 @@
 import ChannelStore from '../stores/channelStore'
 
 const ChannelItem =({ channel, id }) => {
-  console.log(channel.selected)
-
   return (
     <div className="Item">
       <div className="ItemProp">

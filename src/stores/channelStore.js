@@ -4,6 +4,7 @@ import {  makeAutoObservable } from "mobx";
 class channelStore {
   channels = [
     {
+      channelId:"UCVTyTA7-g9nopHeHbeuvpRA",
       title:
         'Late Night with Seth Meyers',
       thumbnailUrl:
@@ -11,6 +12,7 @@ class channelStore {
       selected: false,
     },
     {
+      channelId:"UCwWhs_6x42TyRM4Wstoq8HA",
       title:
         "The Daily Show with Trevor Noah ",
       thumbnailUrl:
@@ -18,6 +20,7 @@ class channelStore {
       selected: false,
     },
     {
+      channelId:"UCMtFAi84ehTSYSE9XoHefig",
       title:
         "The Late Show with Stephen Colbert",
       thumbnailUrl:
@@ -27,9 +30,9 @@ class channelStore {
   ];
   
   handleSelectChannel = id => {
-    console.log(this.channels)
-    this.channels=this.channels.map((current,index)=> index === id ? {...current,selected: !current.selected}: current)
-    console.log(this.channels)
+    this.channels=this.channels.map((current,index)=> index === id 
+    ? {...current,selected: !current.selected}
+    : current)
   }
 
   constructor() {

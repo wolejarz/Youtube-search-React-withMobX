@@ -11,9 +11,9 @@ const App = () => {
     <div>
       <div className="leftPan">
         <ChannelList />
-        {/* <SearchBar />
+        <SearchBar />
         <VideoList />
-      </div>
+      {/* </div>
       <div className="rightPan">
         <VideoDetails /> */}
       </div>

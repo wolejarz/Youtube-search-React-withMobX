@@ -11,7 +11,7 @@ import {
   CLEAR_VIDEOS,
   HIDE_VIDEO,
   MAX_VIDEOS,
-} from './types'
+} from '../stores/constants'
 
 const AppStateProvider = props => {
   const initialState = {

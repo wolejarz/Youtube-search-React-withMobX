@@ -5,7 +5,7 @@ import {
   SELECT_VIDEO,
   HIDE_VIDEO,
   CLEAR_VIDEOS,
-} from "./types";
+} from "../stores/constants";
 
 const AppReducer = (state, action) => {
   switch (action.type) {
