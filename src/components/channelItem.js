@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import ChannelStore from '../stores/channelStore'
 
-const ChannelItem = ({ channel, id }) => {
+const ChannelItem =({ channel, id }) => {
+  console.log(channel.selected)
+
   return (
     <div className="Item">
       <div className="ItemProp">
@@ -9,17 +11,17 @@ const ChannelItem = ({ channel, id }) => {
           alt="thumbnail"
           src={channel.thumbnailUrl}
         />
-        {channel.description}
+        {channel.title}
       </div>
-      {/* <input
+      <input
         className="checkbox"
         type="checkbox"
         id="check1"
-        onChange={() => handleSelectChannel(id)}
+        onChange={() => ChannelStore.handleSelectChannel(id)}
         checked={channel.selected}
       />
-      <label htmlFor="check1">Select</label> */}
+      <label htmlFor="check1">Select</label>
     </div>
   );
-};
+}
 export default ChannelItem;
