@@ -1,10 +1,10 @@
-import React from "react";
-import ChannelList from "./components/channelList";
-import SearchBar from "./components/searchBar";
-import VideoDetails from "./components/videoDetails";
-import VideoList from "./components/videoList";
+import React from 'react';
+import ChannelList from './components/channelList';
+import SearchBar from './components/searchBar';
+import VideoDetails from './components/videoDetails';
+import VideoList from './components/videoList';
 
-import "./styles/App.css";
+import './styles/App.css';
 
 const App = () => {
   return (
@@ -13,9 +13,9 @@ const App = () => {
         <ChannelList />
         <SearchBar />
         <VideoList />
-      {/* </div>
+      </div>
       <div className="rightPan">
-        <VideoDetails /> */}
+        <VideoDetails />
       </div>
     </div>
   );
