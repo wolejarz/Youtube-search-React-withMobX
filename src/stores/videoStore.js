@@ -29,25 +29,19 @@ class videoStore {
       while (videosFromChannel === null || videosFromChannel.length < MAX_VIDEOS) {
         const response = await fetch(
           `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channel.channelId}
-          &maxResults=${MAX_VIDEOS}&order=date&pageToken=${pageToken}&type=video&key=${APIKey}`
-        );
+          &maxResults=${MAX_VIDEOS}&order=date&pageToken=${pageToken}&type=video&key=${APIKey}`  );
         const responseInJson = await response.json();
         pageToken = responseInJson.nextPageToken;
         const filteredVideosFromResponse = responseInJson.items.filter(current =>
-          this.hiddenOrWatchedVideos.indexOf(current.id.videoId) === -1 ? true : false
-        );
-        videosFromChannel =
-          videosFromChannel === null
-            ? filteredVideosFromResponse
-            : videosFromChannel.concat(filteredVideosFromResponse);
+          this.hiddenOrWatchedVideos.indexOf(current.id.videoId) === -1 ? true : false );
+        videosFromChannel = [...videosFromChannel||[],...filteredVideosFromResponse||[]];
       }
       return videosFromChannel.map(current => ({
         id: current.id.videoId,
-        ...current.snippet,
+        description: current.snippet.description,
+        publishTime: current.snippet.publishTime,
       }));
-    } catch (error) {
-      console.log('API Error');
-    }
+    } catch (error) { console.log('API Error'); }
   }.bind(this);
 
   handleGetVideos = async function () {

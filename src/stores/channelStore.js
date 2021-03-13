@@ -26,10 +26,14 @@ class channelStore {
     },
   ];
 
+  setChannels = channels => {
+    this.channels = channels;
+  };
+
   handleSelectChannel = id => {
-    this.channels = this.channels.map(current =>
+    this.setChannels(this.channels.map(current =>
       current.channelId === id ? { ...current, selected: !current.selected } : current
-    );
+    ));
   };
 
   constructor() {
