@@ -24,7 +24,7 @@ class videoStore {
   //gets  N (MAX_VIDEOS) videos from given channel - only non-watched or non-hidden videos
   getVideosFromChannel = async function (channel) {
     let videosFromChannel = null;
-    let pageToken = '';
+    let pageToken = "";
     try {
       while (videosFromChannel === null || videosFromChannel.length < MAX_VIDEOS) {
         const response = await fetch(
