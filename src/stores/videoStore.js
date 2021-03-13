@@ -10,6 +10,7 @@ class videoStore {
   constructor() {
     makeAutoObservable(this);
   }
+
   setVideos = videos => {
     this.videos = videos;
   };
@@ -19,28 +20,26 @@ class videoStore {
   setHiddenOrWatchedVideos = videos => {
     this.hiddenOrWatchedVideos = videos;
   };
-  //gets  N (MAX_VIDEOS) videos from given channel - only non-watched or non-hidden videos
 
+  //gets  N (MAX_VIDEOS) videos from given channel - only non-watched or non-hidden videos
   getVideosFromChannel = async function (channel) {
     let videosFromChannel = null;
-    let takeVideosBefore = new Date(Date.now()).toISOString();
+    let pageToken = '';
     try {
       while (videosFromChannel === null || videosFromChannel.length < MAX_VIDEOS) {
         const response = await fetch(
           `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channel.channelId}
-          &maxResults=${MAX_VIDEOS}&order=date&publishedBefore=${takeVideosBefore}&type=video&key=${APIKey}`
+          &maxResults=${MAX_VIDEOS}&order=date&pageToken=${pageToken}&type=video&key=${APIKey}`
         );
         const responseInJson = await response.json();
-        //gets publish time of the last video in the current fetch to get only older videos in the next fetch
-        takeVideosBefore = responseInJson.items[responseInJson.items.length - 1].snippet.publishTime;
-
+        pageToken = responseInJson.nextPageToken;
         const filteredVideosFromResponse = responseInJson.items.filter(current =>
           this.hiddenOrWatchedVideos.indexOf(current.id.videoId) === -1 ? true : false
         );
         videosFromChannel =
           videosFromChannel === null
             ? filteredVideosFromResponse
-            : videosFromChannel.concat(filteredVideosFromResponse.slice(1, filteredVideosFromResponse.length));
+            : videosFromChannel.concat(filteredVideosFromResponse);
       }
       return videosFromChannel.map(current => ({
         id: current.id.videoId,
