@@ -2,13 +2,13 @@ import { observer } from 'mobx-react';
 
 import VideoStore from '../stores/videoStore';
 
-const VideoDetails = observer(() => {
-  const videoPath = `https://www.youtube.com/embed/${VideoStore.selectedVideo}`;
-  if (!VideoStore.selectedVideo) return <div></div>;
-  return (
-    <div>
-      <iframe title="Video Player" width="35%" height="400px" src={videoPath} />
-    </div>
-  );
-});
+const VideoDetails = observer(() => 
+ !VideoStore.selectedVideo
+ ? <div></div>
+ : <div>
+      <iframe title="Video Player" width="35%" height="400px" 
+      src={`https://www.youtube.com/embed/${VideoStore.selectedVideo}`} />
+   </div>
+);
 export default VideoDetails;
+

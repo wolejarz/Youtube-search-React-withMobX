@@ -7,7 +7,7 @@ import VideoList from './components/videoList';
 
 import './styles/App.css';
 
-const App = () => (
+const App = () => 
   <div>
     <div className="leftPan">
       <ChannelList />
@@ -18,5 +18,5 @@ const App = () => (
       <VideoDetails />
     </div>
   </div>
-);
+
 export default App;

@@ -26,13 +26,11 @@ class channelStore {
     },
   ];
 
-  setChannels = channels => (this.channels = channels);
+  setChannels = channels => this.channels = channels;
 
-  handleSelectChannel = id => {
-    this.setChannels(
-      this.channels.map(current => (current.channelId === id ? { ...current, selected: !current.selected } : current))
-    );
-  };
+  handleSelectChannel = id => this.setChannels(
+     this.channels.map(current => (current.channelId === id ? { ...current, selected: !current.selected } : current)))
+  
 
   constructor() {
     makeAutoObservable(this);

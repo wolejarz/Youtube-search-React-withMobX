@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import VideoItem from './videoItem';
 import VideoStore from '../stores/videoStore';
 
-const VideoList = observer(() => (
+const VideoList = observer(() => 
   VideoStore.videos.length===0
   ? <div className="Item">Search result list is empty</div>
   : <div>
@@ -12,5 +12,5 @@ const VideoList = observer(() => (
       <VideoItem key={id} video={current} />
     ))}
   </div>
-));
+);
 export default VideoList;

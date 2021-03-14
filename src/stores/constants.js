@@ -1,2 +1,2 @@
-export const APIKey = 'AIzaSyDOYIMVqD5w3Kp36fc3_q8h5-6XfBwsGyI';
+export const APIKey ="Place for API key";
 export const MAX_VIDEOS = 10;
