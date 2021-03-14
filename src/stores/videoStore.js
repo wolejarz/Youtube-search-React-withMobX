@@ -11,30 +11,29 @@ class videoStore {
     makeAutoObservable(this);
   }
 
-  setVideos = videos => {
-    this.videos = videos;
-  };
-  setSelectedVideo = video => {
-    this.selectedVideo = video;
-  };
-  setHiddenOrWatchedVideos = videos => {
-    this.hiddenOrWatchedVideos = videos;
-  };
+  setVideos = videos => (this.videos = videos);
+  setSelectedVideo = video => (this.selectedVideo = video);
+  setHiddenOrWatchedVideos = videos => (this.hiddenOrWatchedVideos = videos);
 
   getVideosFromChannel = async (channel, howManyINeed, pageToken) => {
-    const response = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channel.channelId}
+    try {
+      const response = await fetch(
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channel.channelId}
           &maxResults=${MAX_VIDEOS}&order=date&pageToken=${pageToken}&type=video&key=${APIKey}`
-    );
-    const responseInJson = await response.json();
-    const filteredVideos = responseInJson.items.filter(current =>
-      this.hiddenOrWatchedVideos.indexOf(current.id.videoId) === -1 ? true : false
-    );
-    return filteredVideos.length < howManyINeed
-      ? filteredVideos.concat(
-          await this.getVideosFromChannel(channel, howManyINeed - filteredVideos.length, responseInJson.nextPageToken)
-        )
-      : filteredVideos;
+      );
+
+      const responseInJson = await response.json();
+      const filteredVideos = responseInJson.items.filter(current =>
+        this.hiddenOrWatchedVideos.indexOf(current.id.videoId) === -1 ? true : false
+      );
+      return filteredVideos.length < howManyINeed
+        ? filteredVideos.concat(
+            await this.getVideosFromChannel(channel, howManyINeed - filteredVideos.length, responseInJson.nextPageToken)
+          )
+        : filteredVideos;
+    } catch (error) {
+      console.log('Probably API error');
+    }
   };
 
   handleGetVideos = async () => {
