@@ -12,9 +12,9 @@ class videoStore {
     makeAutoObservable(this);
   }
 
-  setVideos = videos => this.videos = videos;
-  setSelectedVideo = video => this.selectedVideo = video;
-  setHiddenOrWatchedVideos = videos => this.hiddenOrWatchedVideos = videos;
+  setVideos = videos => (this.videos = videos);
+  setSelectedVideo = video => (this.selectedVideo = video);
+  setHiddenOrWatchedVideos = videos => (this.hiddenOrWatchedVideos = videos);
 
   getVideosFromChannel = async (channel, howManyINeed, pageToken) => {
     try {
@@ -28,7 +28,7 @@ class videoStore {
       );
       return filteredVideos.length < howManyINeed
         ? filteredVideos.concat(
-           await this.getVideosFromChannel(channel, howManyINeed - filteredVideos.length, responseInJson.nextPageToken)
+            await this.getVideosFromChannel(channel, howManyINeed - filteredVideos.length, responseInJson.nextPageToken)
           )
         : filteredVideos;
     } catch (error) {
@@ -37,23 +37,25 @@ class videoStore {
   };
 
   handleGetVideos = async () => {
-    const allChannelsUnselected = !ChannelStore.channels.reduce((total, current) => total || current.selected, false);
-    const arrayOfPromises = ChannelStore.channels
-      .filter(current => current.selected || allChannelsUnselected) 
-      .map(current => this.getVideosFromChannel(current, MAX_VIDEOS, ''));
-    const results = await Promise.all(arrayOfPromises);
-    const resultsAsOneArray = results
-      .reduce((flat, toFlatten) => flat.concat(toFlatten), [])
-      .map(current => ({
-        id: current.id.videoId,
-        description: current.snippet.description,
-        publishTime: current.snippet.publishTime,
-      }));
-    const sortedAndTruncatedResults = resultsAsOneArray
-      .sort((a, b) => Date.parse(a.publishTime) > Date.parse(b.publishTime) ? -1 : 1)
-      .slice(0, MAX_VIDEOS);
-    this.setVideos(sortedAndTruncatedResults);
     this.setSelectedVideo(null);
+    this.setVideos([]);
+    const allChannelsUnselected = !ChannelStore.channels.reduce((total, current) => total || current.selected, false);
+    ChannelStore.channels.forEach(current => {
+      if (current.selected || allChannelsUnselected)
+        this.getVideosFromChannel(current, MAX_VIDEOS, '').then(result => {
+          const resultsOnlyNeededFields = result
+            .map(current => ({
+              id: current.id.videoId,
+              description: current.snippet.description,
+              publishTime: current.snippet.publishTime,
+            }))
+            .concat(this.videos);
+          const sortedAndTruncatedResults = resultsOnlyNeededFields
+            .sort((a, b) => (Date.parse(a.publishTime) > Date.parse(b.publishTime) ? -1 : 1))
+            .slice(0, MAX_VIDEOS);
+          this.setVideos(sortedAndTruncatedResults);
+        });
+    });
   };
 
   handleHideVideo = video => {
