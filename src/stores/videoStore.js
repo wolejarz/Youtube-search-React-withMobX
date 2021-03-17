@@ -36,25 +36,29 @@ class videoStore {
     }
   };
 
+  addNewVideos = videos => {
+    const sortedAndTruncatedResults = videos
+      .concat(this.videos)
+      .sort((a, b) => (Date.parse(a.publishTime) > Date.parse(b.publishTime) ? -1 : 1))
+      .slice(0, MAX_VIDEOS);
+    this.setVideos(sortedAndTruncatedResults);
+  };
+
   handleGetVideos = async () => {
     this.setSelectedVideo(null);
     this.setVideos([]);
     const allChannelsUnselected = !ChannelStore.channels.reduce((total, current) => total || current.selected, false);
     ChannelStore.channels.forEach(current => {
       if (current.selected || allChannelsUnselected)
-        this.getVideosFromChannel(current, MAX_VIDEOS, '').then(result => {
-          const resultsOnlyNeededFields = result
-            .map(current => ({
+        this.getVideosFromChannel(current, MAX_VIDEOS, '').then(result =>
+          this.addNewVideos(
+            result.map(current => ({
               id: current.id.videoId,
               description: current.snippet.description,
               publishTime: current.snippet.publishTime,
             }))
-            .concat(this.videos);
-          const sortedAndTruncatedResults = resultsOnlyNeededFields
-            .sort((a, b) => (Date.parse(a.publishTime) > Date.parse(b.publishTime) ? -1 : 1))
-            .slice(0, MAX_VIDEOS);
-          this.setVideos(sortedAndTruncatedResults);
-        });
+          )
+        );
     });
   };
 
