@@ -2,69 +2,47 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Project reads description of 3 hardcoded channels.
+## User can select which channel is searchable.
+## After search list of videos os displayed.
+##  User can hide or watch video.
+## It's necessary to eneter Youtube API key in the file ./src/context/types.js
+## Application was tested in Chrome
 
-### `yarn start`
+## What is the goal ?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. At the top, I want a list of my favorite comedy shows (YouTube channels). The list of
+shows will be hardcoded in this challenge (see below)
+2. I want to be able to select zero, one, or more of those shows
+3. There should be a Search button
+4. When I click Search, it means I want to watch clips from the selected shows (only), or:
+5. If no shows have been selected, the application should behave as if all shows have been
+selected.
+6. The application must then search YouTube for available clips in all the shows that have
+been selected
+7. For N shows, the searches must be performed as N asynchronous requests
+8. As results come in, clips should immediately be displayed in a single interleaved list
+(below the list of shows).
+9. In the clip list, you do not need to show more information than the full clip description
+(e.g. “GOP Senators Warned About Trump’s Violence – Now They’re Ignoring It”), with
+the date (year, month, and day, in that order) below the description.
+10. The list of clips must be time-sorted, with the newest shows at the top
+11. The list of clips must never contain more than 10 items in total
+12. Each entry in the clip list must have a Hide button
+13. If I click the Hide button for a clip, the clip should be removed from the list
+14. A hidden clip should never be shown again (e.g. if another search is performed)
+15. If I click anywhere on the clip description/date, the clip video should appear to the right
+of the clip list, and the clip should immediately be removed from the list as if I had
+pressed Hide
+16. I have total recall, so once I’ve seen a clip I will never want to see it again, no need to be
+able to “recover” watched/hidden clips �
+17. You should not make the history of watched/hidden clips persist across reloads.
+18. You do not need to refill the list so it still has 10 entries after I hide/watch a clip, it only
+needs to fill up whenever I press Search.
+19. If I start changing the selection of shows, keep the latest search results in place until I
+press Search again.
+20. Do not use any CSS/component frameworks/libraries. You may use only hand-crafted
+CSS (or SASS etc).
+21. The project should be written in “pure” React – with Mobx,
+22. You may use external packages for implementation of things such as fetching data
