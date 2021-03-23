@@ -1,6 +1,6 @@
 import ChannelStore from '../stores/channelStore';
 
-const ChannelItem = ({ channel }) => 
+const ChannelItem = ({ channel }) => (
   <div className="Item">
     <div className="ItemProp">
       <img style={{ marginRight: '5px', height: '4rem' }} alt="thumbnail" src={channel.thumbnailUrl} />
@@ -15,5 +15,6 @@ const ChannelItem = ({ channel }) =>
     />
     <label htmlFor="check1">Select</label>
   </div>
+);
 
 export default ChannelItem;
