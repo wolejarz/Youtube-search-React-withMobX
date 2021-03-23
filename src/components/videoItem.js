@@ -1,6 +1,8 @@
 import VideoStore from '../stores/videoStore';
 
-const VideoItem = ({ video }) => 
+// No comment except lowercasing VideoStore
+
+const VideoItem = ({ video }) => (
   <div className="Item">
     <div className="ItemProp" onClick={() => VideoStore.handleSelectVideo(video)}>
       <div>Description: {video.description}</div>
@@ -8,5 +10,6 @@ const VideoItem = ({ video }) =>
     </div>
     <button onClick={() => VideoStore.handleHideVideo(video)}>Hide Video</button>
   </div>
+);
 
 export default VideoItem;

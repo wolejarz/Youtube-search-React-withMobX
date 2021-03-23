@@ -1,5 +1,9 @@
 import ChannelStore from '../stores/channelStore';
 
+// SVHH: The onChange={ () => ... } creates a new function on the fly
+// for every instance. Ok, so we don't optimize now, just keep in mind.
+// And it's often necessary for functional components because you need
+// an enclosure (channel.channelId)
 const ChannelItem = ({ channel }) => (
   <div className="Item">
     <div className="ItemProp">

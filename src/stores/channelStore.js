@@ -1,7 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 
-//
+// Switch around camelCase vs. CamelCase
+
 class channelStore {
+  // This is a very small store, but often it's better to extract the definition
+  // of initial data - maybe simply to a function right above the store (which keeps the
+  // definition of the data structure visible in here)
   channels = [
     {
       channelId: 'UCVTyTA7-g9nopHeHbeuvpRA',

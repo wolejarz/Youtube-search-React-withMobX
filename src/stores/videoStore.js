@@ -3,6 +3,8 @@ import { makeAutoObservable } from 'mobx';
 import ChannelStore from '../stores/channelStore';
 import { MAX_VIDEOS, APIKey } from '../stores/constants';
 
+// Ooops, classes have CamelCase, exported instances have camelCase
+
 class videoStore {
   videos = [];
   selectedVideo = null;
@@ -16,6 +18,8 @@ class videoStore {
   setSelectedVideo = video => (this.selectedVideo = video);
   setHiddenOrWatchedVideos = videos => (this.hiddenOrWatchedVideos = videos);
 
+  // SVHH: Consider function to construct URL?
+  // SVHH: Very complicated return statement with multi-line ? : operator
   getVideosFromChannel = async (channel, howManyINeed, pageToken) => {
     try {
       const response = await fetch(
@@ -36,6 +40,9 @@ class videoStore {
     }
   };
 
+  // SVHH: Consider [...this.videos, videos]
+  // SVHH: Routine is called  addNewVideos so argument should probably be called...?
+  // SVHH: Conceptual switch from ...videos to ...results
   addNewVideos = videos => {
     const sortedAndTruncatedResults = videos
       .concat(this.videos)
@@ -48,6 +55,7 @@ class videoStore {
     this.setSelectedVideo(null);
     this.setVideos([]);
     const allChannelsUnselected = !ChannelStore.channels.reduce((total, current) => total || current.selected, false);
+    // SVHH: Simplify logic inside forEach statement!
     ChannelStore.channels.forEach(current => {
       if (current.selected || allChannelsUnselected)
         this.getVideosFromChannel(current, MAX_VIDEOS, '').then(result =>
