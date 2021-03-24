@@ -14,7 +14,7 @@ const ChannelItem = ({ channel }) => (
       className="checkbox"
       type="checkbox"
       id="check1"
-      onChange={() => ChannelStore.handleSelectChannel(channel.channelId)}
+      onChange={ChannelStore.handleSelectChannel(channel.channelId)}
       checked={channel.selected}
     />
     <label htmlFor="check1">Select</label>
