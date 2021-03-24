@@ -3,8 +3,6 @@ import { makeAutoObservable } from 'mobx';
 import ChannelStore from '../stores/channelStore';
 import { MAX_VIDEOS, APIKey } from '../stores/constants';
 
-// Ooops, classes have CamelCase, exported instances have camelCase
-
 class videoStore {
   videos = [];
   selectedVideo = null;
@@ -18,30 +16,27 @@ class videoStore {
   setSelectedVideo = video => (this.selectedVideo = video);
   setHiddenOrWatchedVideos = videos => (this.hiddenOrWatchedVideos = videos);
 
-  // SVHH: Consider function to construct URL?
-  // SVHH: Very complicated return statement with multi-line ? : operator
-  getVideosFromChannel = async (channel, howManyINeed, pageToken) => {
-    try {
-      const response = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channel.channelId}
+  videoUrl = (channelId,pageToken) =>`https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}
           &maxResults=${MAX_VIDEOS}&order=date&pageToken=${pageToken}&type=video&key=${APIKey}`
-      );
+
+  getVideosFromChannel = async (channel, howManyINeed, pageToken) => {
+    let filteredVideos;
+    try {
+      const response = await fetch(this.videoUrl(channel.channelId, pageToken));
       const responseInJson = await response.json();
-      const filteredVideos = responseInJson.items.filter(current =>
+      filteredVideos = responseInJson.items.filter(current =>
         this.hiddenOrWatchedVideos.indexOf(current.id.videoId) === -1 ? true : false
       );
-      return filteredVideos.length < howManyINeed
-        ? filteredVideos.concat(
-            await this.getVideosFromChannel(channel, howManyINeed - filteredVideos.length, responseInJson.nextPageToken)
-          )
-        : filteredVideos;
+      if (filteredVideos.length < howManyINeed) {
+        const newVideos = await this.getVideosFromChannel(channel, howManyINeed - filteredVideos.length, responseInJson.nextPageToken)
+        filteredVideos.concat(newVideos);
+      }
     } catch (error) {
       console.log('Probably API error');
     }
+    return filteredVideos;
   };
 
-  // SVHH: Consider [...this.videos, videos]
-  // SVHH: Routine is called  addNewVideos so argument should probably be called...?
   // SVHH: Conceptual switch from ...videos to ...results
   addNewVideos = videos => {
     const sortedAndTruncatedResults = videos
@@ -56,7 +51,9 @@ class videoStore {
     this.setVideos([]);
     const allChannelsUnselected = !ChannelStore.channels.reduce((total, current) => total || current.selected, false);
     // SVHH: Simplify logic inside forEach statement!
-    ChannelStore.channels.forEach(current => {
+    const allChannelsToSearch = ...
+    allChannelsToSearch.forEach(currentChannel => maybeFetch(currentC))
+      {
       if (current.selected || allChannelsUnselected)
         this.getVideosFromChannel(current, MAX_VIDEOS, '').then(result =>
           this.addNewVideos(
